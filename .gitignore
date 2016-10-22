@@ -1,4 +1,5 @@
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
+blog-generator
 *.o
 *.a
 *.so
@@ -22,3 +23,7 @@ _testmain.go
 *.exe
 *.test
 *.prof
+tmp
+www
+config.yml
+blog-generator

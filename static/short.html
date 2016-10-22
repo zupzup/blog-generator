@@ -1,0 +1,20 @@
+<div class="short">
+    <h2><a href="{{.Link}}">{{.Title}}</a></h2>
+    <div class="datettr">
+        <span class="date">{{.Date}}</span> - <span class="ttr">{{.TimeToRead}} read</span> - <span class="tags">
+            {{range .Tags}}
+                <span><a href="{{.Link}}">{{.Name}}</a></span>
+            {{end}}
+        </span>
+    </div>
+    <div>
+        <a href="{{.Link}}">
+            <p>
+                {{.Short}}
+            </p>
+        </a>
+    </div>
+    <div class="readmore">
+        <a href="{{.Link}}">read more...</a>
+    </div>
+</div>

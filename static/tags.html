@@ -1,0 +1,9 @@
+<div>
+    <ul id="taglist">
+        {{range .}}
+            <li>
+                <p>- <a href="{{.Link}}">{{.Name}}</a> ({{.Count}})</p>
+            </li>
+        {{end}}
+    </ul>
+</div>
