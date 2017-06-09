@@ -45,7 +45,7 @@ const TmpFolder string = "./tmp"
 const DestFolder string = "./www"
 ```
 
-### Confugure the Generator
+### Configure the Generator
 
 Set the following constants in `generator/generator.go`
 ```go
