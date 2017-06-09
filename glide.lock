@@ -1,12 +1,25 @@
-hash: 137626c7eba6b935b747f9e3673e2523c0e82d901ff0d3f45bca713ff7570a34
-updated: 2017-06-03T13:12:24.339677656+02:00
+hash: 60dcf69ebb0d9615215c266995b56588cd3b4141fc06ab1a7be4bd145cec2d66
+updated: 2017-06-09T14:36:48.133654075+02:00
 imports:
+- name: github.com/andybalholm/cascadia
+  version: 349dd0209470eabd9514242c688c403c0926d266
 - name: github.com/beevik/etree
   version: abae5fc32af8862e420d52e686a7e6ec14111685
+- name: github.com/PuerkitoBio/goquery
+  version: e1271ee34c6a305e38566ecd27ae374944907ee9
 - name: github.com/russross/blackfriday
   version: 0b647d0506a698cca42caca173e55559b12a69f2
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 541ff5ee47f1dddf6a5281af78307d921524bcb5
+- name: github.com/sourcegraph/annotate
+  version: f4cad6c6324d3f584e1743d8b3e0e017a5f3a636
+- name: github.com/sourcegraph/syntaxhighlight
+  version: bd320f5d308e1a3c4314c678d8227a0d72574ae7
+- name: golang.org/x/net
+  version: 59a0b19b5533c7977ddeb86b017bf507ed407b12
+  subpackages:
+  - html
+  - html/atom
 - name: gopkg.in/yaml.v2
   version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 testImports: []
