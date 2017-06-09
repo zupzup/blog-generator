@@ -1,8 +1,11 @@
 package generator
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/russross/blackfriday"
+	"github.com/sourcegraph/syntaxhighlight"
 	"gopkg.in/yaml.v2"
 	"html/template"
 	"io/ioutil"
@@ -120,7 +123,13 @@ func getHTML(path string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error while reading file %s: %v", filePath, err)
 	}
-	return blackfriday.MarkdownCommon(input), nil
+	html := blackfriday.MarkdownCommon(input)
+	replaced, err := replaceCodeParts(html)
+	if err != nil {
+		return nil, fmt.Errorf("error during syntax highlighting of %s: %v", filePath, err)
+	}
+	return []byte(replaced), nil
+
 }
 
 func getImages(path string) (string, []string, error) {
@@ -137,6 +146,28 @@ func getImages(path string) (string, []string, error) {
 		images = append(images, file.Name())
 	}
 	return dirPath, images, nil
+}
+
+func replaceCodeParts(htmlFile []byte) (string, error) {
+	byteReader := bytes.NewReader(htmlFile)
+	doc, err := goquery.NewDocumentFromReader(byteReader)
+	if err != nil {
+		return "", fmt.Errorf("error while parsing html: %v", err)
+	}
+	// find code-parts via css selector and replace them with highlighted versions
+	doc.Find("code[class*=\"language-\"]").Each(func(i int, s *goquery.Selection) {
+		oldCode := s.Text()
+		formatted, _ := syntaxhighlight.AsHTML([]byte(oldCode))
+		s.SetHtml(string(formatted))
+	})
+	new, err := doc.Html()
+	if err != nil {
+		return "", fmt.Errorf("error while generating html: %v", err)
+	}
+	// replace unnecessarily added html tags
+	new = strings.Replace(new, "<html><head></head><body>", "", 1)
+	new = strings.Replace(new, "</body></html>", "", 1)
+	return new, nil
 }
 
 func (p ByDateDesc) Len() int {
