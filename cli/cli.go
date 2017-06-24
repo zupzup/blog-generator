@@ -10,6 +10,9 @@ import (
 
 // Run runs the application
 func Run() {
+	if config.RepoURL == "" {
+		log.Fatal("please provide a repository URL using the -repo flag")
+	}
 	ds := datasource.New()
 	dirs, err := ds.Fetch(config.RepoURL, config.TmpFolder)
 

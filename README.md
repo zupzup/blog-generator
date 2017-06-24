@@ -32,27 +32,24 @@ in this repository's root directory.
 
 ## Customization
 
-### Configure the CLI
+### CLI Configuration 
 
-Provide `flag` to binary. To know which flags are used and which are used and
-to override them:
+To see the available command-line flags, execute
 
 ```shell
-go build
-
-./blog-generator -h
+blog-generator -h
 ```
 
-Output:
+Available flags:
 
-```
-Usage of ./blog-generator:
-  -destfolder string
-        is the output folder of the static blog (default "./www")
-  -repo string
-        Repository URL
-  -tmpfolder string
-        folder where the data-source repo is checked out to (default "./tmp")
+- **`-repo`:** Source Repository URL **(mandatory)**
+- **`-destfolder`:** The output folder of the static blog **(default "./www")**
+- **`-tmpfolder`:** The folder where the data-source repo is checked out to **(default "./tmp")**
+
+Example:
+
+```bash
+blog-generator -repo https://github.com/zupzup/blog -tmpfolder ./tmp -destfolder ./www
 ```
 
 ### Configure the Generator
