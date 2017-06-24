@@ -25,7 +25,7 @@ go get github.com/zupzup/blog-generator
 Just execute
 
 ```bash
-blog-generator
+blog-generator -repo git@github.com:username/repo.git
 ```
 
 in this repository's root directory.
@@ -34,15 +34,25 @@ in this repository's root directory.
 
 ### Configure the CLI
 
-Set the following constants in `cli/cli.go`:
+Provide `flag` to binary. To know which flags are used and which are used and
+to override them:
 
-```go
-// data source for the blog
-const RepoURL string = "git@github.com:username/repo.git"
-// folder to download the repo into
-const TmpFolder string = "./tmp"
-// output folder
-const DestFolder string = "./www"
+```shell
+go build
+
+./blog-generator -h
+```
+
+Output:
+
+```
+Usage of ./blog-generator:
+  -destfolder string
+        is the output folder of the static blog (default "./www")
+  -repo string
+        Repository URL
+  -tmpfolder string
+        folder where the data-source repo is checked out to (default "./tmp")
 ```
 
 ### Configure the Generator
