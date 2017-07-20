@@ -113,6 +113,7 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 		Template:    t,
 		Destination: destination,
 		PageTitle:   "",
+		IsIndex:     true,
 	}}
 	// archive
 	ag := ListingGenerator{&ListingConfig{
@@ -120,6 +121,7 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 		Template:    t,
 		Destination: fmt.Sprintf("%s/archive", destination),
 		PageTitle:   "Archive",
+		IsIndex:     false,
 	}}
 	// tags
 	tg := TagsGenerator{&TagsConfig{

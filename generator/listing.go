@@ -27,9 +27,11 @@ type ListingConfig struct {
 	Posts                  []*Post
 	Template               *template.Template
 	Destination, PageTitle string
+	IsIndex                bool
 }
 
 const shortTemplatePath string = "static/short.html"
+const archiveLinkTemplatePath string = "static/archiveLink.html"
 
 // Generate starts the listing generation
 func (g *ListingGenerator) Generate() error {
@@ -60,6 +62,17 @@ func (g *ListingGenerator) Generate() error {
 		postBlocks = append(postBlocks, block.String())
 	}
 	htmlBlocks := template.HTML(strings.Join(postBlocks, "<br />"))
+	if g.Config.IsIndex {
+		archiveLink, err := getTemplate(archiveLinkTemplatePath)
+		if err != nil {
+			return err
+		}
+		lastBlock := bytes.Buffer{}
+		if err := archiveLink.Execute(&lastBlock, nil); err != nil {
+			return fmt.Errorf("error executing template %s: %v", archiveLinkTemplatePath, err)
+		}
+		htmlBlocks = template.HTML(fmt.Sprintf("%s%s", htmlBlocks, template.HTML(lastBlock.String())))
+	}
 	if err := writeIndexHTML(destination, pageTitle, htmlBlocks, t); err != nil {
 		return err
 	}
