@@ -29,6 +29,7 @@ type TagsConfig struct {
 	TagPostsMap map[string][]*Post
 	Template    *template.Template
 	Destination string
+	Writer      *IndexWriter
 }
 
 // Generate creates the tags page
@@ -41,12 +42,12 @@ func (g *TagsGenerator) Generate() error {
 	if err := clearAndCreateDestination(tagsPath); err != nil {
 		return err
 	}
-	if err := generateTagIndex(tagPostsMap, t, tagsPath); err != nil {
+	if err := generateTagIndex(tagPostsMap, t, tagsPath, g.Config.Writer); err != nil {
 		return err
 	}
 	for tag, tagPosts := range tagPostsMap {
 		tagPagePath := filepath.Join(tagsPath, tag)
-		if err := generateTagPage(tag, tagPosts, t, tagPagePath); err != nil {
+		if err := generateTagPage(tag, tagPosts, t, tagPagePath, g.Config.Writer); err != nil {
 			return err
 		}
 	}
@@ -54,7 +55,7 @@ func (g *TagsGenerator) Generate() error {
 	return nil
 }
 
-func generateTagIndex(tagPostsMap map[string][]*Post, t *template.Template, destination string) error {
+func generateTagIndex(tagPostsMap map[string][]*Post, t *template.Template, destination string, writer *IndexWriter) error {
 	tagsTemplatePath := filepath.Join("static", "tags.html")
 	tmpl, err := getTemplate(tagsTemplatePath)
 	if err != nil {
@@ -69,13 +70,13 @@ func generateTagIndex(tagPostsMap map[string][]*Post, t *template.Template, dest
 	if err := tmpl.Execute(&buf, tags); err != nil {
 		return fmt.Errorf("error executing template %s: %v", tagsTemplatePath, err)
 	}
-	if err := writeIndexHTML(destination, "Tags", "Tags", template.HTML(buf.String()), t); err != nil {
+	if err := writer.WriteIndexHTML(destination, "Tags", "Tags", template.HTML(buf.String()), t); err != nil {
 		return err
 	}
 	return nil
 }
 
-func generateTagPage(tag string, posts []*Post, t *template.Template, destination string) error {
+func generateTagPage(tag string, posts []*Post, t *template.Template, destination string, writer *IndexWriter) error {
 	if err := clearAndCreateDestination(destination); err != nil {
 		return err
 	}
@@ -84,6 +85,7 @@ func generateTagPage(tag string, posts []*Post, t *template.Template, destinatio
 		Template:    t,
 		Destination: destination,
 		PageTitle:   tag,
+		Writer:      writer,
 	}}
 	if err := lg.Generate(); err != nil {
 		return err

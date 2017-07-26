@@ -55,14 +55,6 @@ func New(config *SiteConfig) *SiteGenerator {
 	return &SiteGenerator{Config: config}
 }
 
-const blogURL = "https://www.zupzup.org"
-const blogDescription = "A blog about Go, JavaScript, Open Source and Programming in General"
-const dateFormat string = "02.01.2006"
-const blogTitle string = "zupzup"
-
-// TODO: use config instead of constants
-// TODO: update docs in readme.md
-
 // Generate starts the static blog generation
 func (g *SiteGenerator) Generate() error {
 	templatePath := filepath.Join("static", "template.html")
@@ -81,7 +73,7 @@ func (g *SiteGenerator) Generate() error {
 	}
 	var posts []*Post
 	for _, path := range sources {
-		post, err := newPost(path)
+		post, err := newPost(path, g.Config.Config.Blog.Dateformat)
 		if err != nil {
 			return err
 		}
@@ -102,12 +94,20 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 	pool := make(chan struct{}, 50)
 	generators := []Generator{}
 
+	indexWriter := &IndexWriter{
+		BlogURL:         cfg.Blog.URL,
+		BlogTitle:       cfg.Blog.Title,
+		BlogDescription: cfg.Blog.Description,
+		BlogAuthor:      cfg.Blog.Author,
+	}
+
 	//posts
 	for _, post := range posts {
 		pg := PostGenerator{&PostConfig{
 			Post:        post,
 			Destination: destination,
 			Template:    t,
+			Writer:      indexWriter,
 		}}
 		generators = append(generators, &pg)
 	}
@@ -119,6 +119,7 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 		Destination: destination,
 		PageTitle:   "",
 		IsIndex:     true,
+		Writer:      indexWriter,
 	}}
 	// archive
 	ag := ListingGenerator{&ListingConfig{
@@ -127,12 +128,14 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 		Destination: filepath.Join(destination, "archive"),
 		PageTitle:   "Archive",
 		IsIndex:     false,
+		Writer:      indexWriter,
 	}}
 	// tags
 	tg := TagsGenerator{&TagsConfig{
 		TagPostsMap: tagPostsMap,
 		Template:    t,
 		Destination: destination,
+		Writer:      indexWriter,
 	}}
 
 	staticURLs := []string{}
@@ -170,6 +173,7 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 		FileToDestination: fileToDestination,
 		TemplateToFile:    templateToFile,
 		Template:          t,
+		Writer:            indexWriter,
 	}}
 	generators = append(generators, &fg, &ag, &tg, &sg, &rg, &statg)
 
@@ -210,8 +214,16 @@ func clearAndCreateDestination(path string) error {
 	return os.Mkdir(path, os.ModePerm)
 }
 
-// TODO: return function, which has access to config params
-func writeIndexHTML(path, pageTitle string, metaDescription string, content template.HTML, t *template.Template) error {
+// IndexWriter writer index.html files
+type IndexWriter struct {
+	BlogTitle       string
+	BlogDescription string
+	BlogAuthor      string
+	BlogURL         string
+}
+
+// WriteIndexHTML writes an index.html file
+func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, content template.HTML, t *template.Template) error {
 	filePath := filepath.Join(path, "index.html")
 	f, err := os.Create(filePath)
 	if err != nil {
@@ -220,16 +232,16 @@ func writeIndexHTML(path, pageTitle string, metaDescription string, content temp
 	defer f.Close()
 	metaDesc := metaDescription
 	if metaDescription == "" {
-		metaDesc = blogDescription
+		metaDesc = i.BlogDescription
 	}
 	w := bufio.NewWriter(f)
 	td := IndexData{
-		Name:            "Mario Zupan", // TODO: author
+		Name:            i.BlogAuthor,
 		Year:            time.Now().Year(),
-		HTMLTitle:       getHTMLTitle(pageTitle),
+		HTMLTitle:       getHTMLTitle(pageTitle, i.BlogTitle),
 		PageTitle:       pageTitle,
 		Content:         content,
-		CanonicalLink:   buildCanonicalLink(path, blogURL),
+		CanonicalLink:   buildCanonicalLink(path, i.BlogURL),
 		MetaDescription: metaDesc,
 	}
 	if err := t.Execute(w, td); err != nil {
@@ -241,7 +253,7 @@ func writeIndexHTML(path, pageTitle string, metaDescription string, content temp
 	return nil
 }
 
-func getHTMLTitle(pageTitle string) string {
+func getHTMLTitle(pageTitle, blogTitle string) string {
 	if pageTitle == "" {
 		return blogTitle
 	}

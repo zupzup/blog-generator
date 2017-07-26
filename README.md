@@ -21,11 +21,39 @@ A static blog generator using a configurable GitHub repository as a data-source.
 go get github.com/zupzup/blog-generator
 ```
 
-## Usage
+## Usage & Customization
 
 ### Configuration
 
-TODO: Config File
+The tool can be configured using a config file called `bloggen.yml`. There is a `bloggen.dist.yml` in the repository you can use as a template.
+
+Example Config File:
+
+```yml
+generator:
+    repo: 'https://github.com/zupzup/blog'
+    tmp: 'tmp'
+    dest: 'www'
+blog:
+    url: 'https://www.zupzup.org'
+    language: 'en-us'
+    description: 'A blog about Go, JavaScript, Open Source and Programming in General'
+    dateformat: '02.01.2006'
+    title: 'zupzup'
+    author: 'Mario Zupan'
+    frontpageposts: 10
+    statics:
+        files:
+            - src: 'static/favicon.ico'
+              dest: 'favicon.ico'
+            - src: 'static/robots.txt'
+              dest: 'robots.txt'
+            - src: 'static/about.png'
+              dest: 'about.png'
+        templates:
+            - src: 'static/about.html'
+              dest: 'about'
+```
 
 ### Running
 
@@ -34,8 +62,6 @@ Just execute
 ```bash
 blog-generator
 ```
-
-in this repository's root directory.
 
 ### Templates
 
