@@ -15,8 +15,13 @@ type RSSGenerator struct {
 
 // RSSConfig holds the configuration for an RSS feed
 type RSSConfig struct {
-	Posts       []*Post
-	Destination string
+	Posts           []*Post
+	Destination     string
+	DateFormat      string
+	Language        string
+	BlogURL         string
+	BlogDescription string
+	BlogTitle       string
 }
 
 const rssDateFormat string = "02 Jan 2006 15:04 -0700"
@@ -33,19 +38,19 @@ func (g *RSSGenerator) Generate() error {
 	rss.CreateAttr("version", "2.0")
 	channel := rss.CreateElement("channel")
 
-	channel.CreateElement("title").SetText(blogTitle)
-	channel.CreateElement("link").SetText(blogURL)
-	channel.CreateElement("language").SetText(blogLanguage)
-	channel.CreateElement("description").SetText(blogDescription)
+	channel.CreateElement("title").SetText(g.Config.BlogTitle)
+	channel.CreateElement("link").SetText(g.Config.BlogURL)
+	channel.CreateElement("language").SetText(g.Config.Language)
+	channel.CreateElement("description").SetText(g.Config.BlogDescription)
 	channel.CreateElement("lastBuildDate").SetText(time.Now().Format(rssDateFormat))
 
 	atomLink := channel.CreateElement("atom:link")
-	atomLink.CreateAttr("href", fmt.Sprintf("%s/index.xml", blogURL))
+	atomLink.CreateAttr("href", fmt.Sprintf("%s/index.xml", g.Config.BlogURL))
 	atomLink.CreateAttr("rel", "self")
 	atomLink.CreateAttr("type", "application/rss+xml")
 
 	for _, post := range posts {
-		if err := addItem(channel, post, fmt.Sprintf("%s/%s/", blogURL, post.Name[1:])); err != nil {
+		if err := addItem(channel, post, fmt.Sprintf("%s/%s/", g.Config.BlogURL, post.Name[1:]), g.Config.DateFormat); err != nil {
 			return err
 		}
 	}
@@ -63,7 +68,7 @@ func (g *RSSGenerator) Generate() error {
 	return nil
 }
 
-func addItem(element *etree.Element, post *Post, path string) error {
+func addItem(element *etree.Element, post *Post, path, dateFormat string) error {
 	meta := post.Meta
 	item := element.CreateElement("item")
 	item.CreateElement("title").SetText(meta.Title)

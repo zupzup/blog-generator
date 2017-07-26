@@ -17,6 +17,8 @@ type SitemapConfig struct {
 	Posts       []*Post
 	TagPostsMap map[string][]*Post
 	Destination string
+	BlogURL     string
+	Statics     []string
 }
 
 // Generate creates the sitemap
@@ -33,18 +35,20 @@ func (g *SitemapGenerator) Generate() error {
 
 	url := urlSet.CreateElement("url")
 	loc := url.CreateElement("loc")
-	loc.SetText(blogURL)
+	loc.SetText(g.Config.BlogURL)
 
-	addURL(urlSet, "about", nil)
-	addURL(urlSet, "archive", nil)
-	addURL(urlSet, "tags", nil)
+	for _, staticURL := range g.Config.Statics {
+		addURL(urlSet, staticURL, g.Config.BlogURL, nil)
+	}
+	addURL(urlSet, "archive", g.Config.BlogURL, nil)
+	addURL(urlSet, "tags", g.Config.BlogURL, nil)
 
 	for tag := range tagPostsMap {
-		addURL(urlSet, tag, nil)
+		addURL(urlSet, tag, g.Config.BlogURL, nil)
 	}
 
 	for _, post := range posts {
-		addURL(urlSet, post.Name[1:], post.Images)
+		addURL(urlSet, post.Name[1:], g.Config.BlogURL, post.Images)
 	}
 
 	filePath := filepath.Join(destination, "sitemap.xml")
@@ -60,7 +64,7 @@ func (g *SitemapGenerator) Generate() error {
 	return nil
 }
 
-func addURL(element *etree.Element, location string, images []string) {
+func addURL(element *etree.Element, location, blogURL string, images []string) {
 	url := element.CreateElement("url")
 	loc := url.CreateElement("loc")
 	loc.SetText(fmt.Sprintf("%s/%s/", blogURL, location))

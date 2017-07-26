@@ -13,6 +13,7 @@ type Config struct {
 		Description    string
 		Dateformat     string
 		Title          string
+		Author         string
 		Frontpageposts int
 		Statics        struct {
 			Files []struct {

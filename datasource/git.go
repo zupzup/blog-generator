@@ -13,15 +13,15 @@ type GitDataSource struct{}
 // Fetch creates the output folder, clears it and clones the repository there
 func (ds *GitDataSource) Fetch(from, to string) ([]string, error) {
 	fmt.Printf("Fetching data from %s into %s...\n", from, to)
-	if err := createFolderIfNotExist(to); err != nil {
-		return nil, err
-	}
-	if err := clearFolder(to); err != nil {
-		return nil, err
-	}
-	if err := cloneRepo(to, from); err != nil {
-		return nil, err
-	}
+	// if err := createFolderIfNotExist(to); err != nil {
+	// 	return nil, err
+	// }
+	// if err := clearFolder(to); err != nil {
+	// 	return nil, err
+	// }
+	// if err := cloneRepo(to, from); err != nil {
+	// 	return nil, err
+	// }
 	dirs, err := getContentFolders(to)
 	if err != nil {
 		return nil, err

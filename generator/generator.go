@@ -56,15 +56,11 @@ func New(config *SiteConfig) *SiteGenerator {
 }
 
 const blogURL = "https://www.zupzup.org"
-const blogLanguage = "en-us"
 const blogDescription = "A blog about Go, JavaScript, Open Source and Programming in General"
 const dateFormat string = "02.01.2006"
 const blogTitle string = "zupzup"
-const numPostsFrontPage int = 10
 
 // TODO: use config instead of constants
-// TODO: add all statics to sitemap.go
-// TODO: statics!
 // TODO: update docs in readme.md
 
 // Generate starts the static blog generation
@@ -92,14 +88,14 @@ func (g *SiteGenerator) Generate() error {
 		posts = append(posts, post)
 	}
 	sort.Sort(ByDateDesc(posts))
-	if err := runTasks(posts, t, destination); err != nil {
+	if err := runTasks(posts, t, destination, g.Config.Config); err != nil {
 		return err
 	}
 	fmt.Println("Finished generating Site...")
 	return nil
 }
 
-func runTasks(posts []*Post, t *template.Template, destination string) error {
+func runTasks(posts []*Post, t *template.Template, destination string, cfg *config.Config) error {
 	var wg sync.WaitGroup
 	finished := make(chan bool, 1)
 	errors := make(chan error, 1)
@@ -118,7 +114,7 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 	tagPostsMap := createTagPostsMap(posts)
 	// frontpage
 	fg := ListingGenerator{&ListingConfig{
-		Posts:       posts[:getNumOfPagesOnFrontpage(posts)],
+		Posts:       posts[:getNumOfPagesOnFrontpage(posts, cfg.Blog.Frontpageposts)],
 		Template:    t,
 		Destination: destination,
 		PageTitle:   "",
@@ -139,25 +135,36 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 		Destination: destination,
 	}}
 
+	staticURLs := []string{}
+	for _, staticURL := range cfg.Blog.Statics.Templates {
+		staticURLs = append(staticURLs, staticURL.Dest)
+	}
 	// sitemap
 	sg := SitemapGenerator{&SitemapConfig{
 		Posts:       posts,
 		TagPostsMap: tagPostsMap,
 		Destination: destination,
+		BlogURL:     cfg.Blog.URL,
+		Statics:     staticURLs,
 	}}
 	// rss
 	rg := RSSGenerator{&RSSConfig{
-		Posts:       posts,
-		Destination: destination,
+		Posts:           posts,
+		Destination:     destination,
+		DateFormat:      cfg.Blog.Dateformat,
+		Language:        cfg.Blog.Language,
+		BlogURL:         cfg.Blog.URL,
+		BlogDescription: cfg.Blog.Description,
+		BlogTitle:       cfg.Blog.Title,
 	}}
 	// statics
-	fileToDestination := map[string]string{
-		"static/favicon.ico": filepath.Join(destination, "favicon.ico"),
-		"static/robots.txt":  filepath.Join(destination, "robots.txt"),
-		"static/about.png":   filepath.Join(destination, "about.png"),
+	fileToDestination := map[string]string{}
+	for _, static := range cfg.Blog.Statics.Files {
+		fileToDestination[static.Src] = filepath.Join(destination, static.Dest)
 	}
-	templateToFile := map[string]string{
-		"static/about.html": filepath.Join(destination, "about", "index.html"),
+	templateToFile := map[string]string{}
+	for _, static := range cfg.Blog.Statics.Templates {
+		templateToFile[static.Src] = filepath.Join(destination, static.Dest, "index.html")
 	}
 	statg := StaticsGenerator{&StaticsConfig{
 		FileToDestination: fileToDestination,
@@ -203,6 +210,7 @@ func clearAndCreateDestination(path string) error {
 	return os.Mkdir(path, os.ModePerm)
 }
 
+// TODO: return function, which has access to config params
 func writeIndexHTML(path, pageTitle string, metaDescription string, content template.HTML, t *template.Template) error {
 	filePath := filepath.Join(path, "index.html")
 	f, err := os.Create(filePath)
@@ -216,7 +224,7 @@ func writeIndexHTML(path, pageTitle string, metaDescription string, content temp
 	}
 	w := bufio.NewWriter(f)
 	td := IndexData{
-		Name:            "Mario Zupan",
+		Name:            "Mario Zupan", // TODO: author
 		Year:            time.Now().Year(),
 		HTMLTitle:       getHTMLTitle(pageTitle),
 		PageTitle:       pageTitle,
@@ -263,11 +271,11 @@ func getTemplate(path string) (*template.Template, error) {
 	return t, nil
 }
 
-func getNumOfPagesOnFrontpage(posts []*Post) int {
-	if len(posts) < numPostsFrontPage {
+func getNumOfPagesOnFrontpage(posts []*Post, numPosts int) int {
+	if len(posts) < numPosts {
 		return len(posts)
 	}
-	return numPostsFrontPage
+	return numPosts
 }
 
 func buildCanonicalLink(path, baseURL string) string {

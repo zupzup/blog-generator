@@ -70,6 +70,9 @@ func readConfig() (*config.Config, error) {
 	if cfg.Blog.Title == "" {
 		return nil, fmt.Errorf("Please provide a Blog Title, e.g.: zupzup")
 	}
+	if cfg.Blog.Author == "" {
+		return nil, fmt.Errorf("Please provide a Blog author, e.g.: Mario Zupan")
+	}
 	if cfg.Blog.Frontpageposts == 0 {
 		cfg.Blog.Frontpageposts = 10
 	}
