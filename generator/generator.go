@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
@@ -69,7 +70,7 @@ func (g *SiteGenerator) Generate() error {
 	if err := clearAndCreateDestination(destination); err != nil {
 		return err
 	}
-	if err := clearAndCreateDestination(fmt.Sprintf("%s/archive", destination)); err != nil {
+	if err := clearAndCreateDestination(filepath.Join(destination, "archive")); err != nil {
 		return err
 	}
 	t, err := getTemplate(templatePath)
@@ -121,7 +122,7 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 	ag := ListingGenerator{&ListingConfig{
 		Posts:       posts,
 		Template:    t,
-		Destination: fmt.Sprintf("%s/archive", destination),
+		Destination: filepath.Join(destination, "archive"),
 		PageTitle:   "Archive",
 		IsIndex:     false,
 	}}
@@ -145,12 +146,12 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 	}}
 	// statics
 	fileToDestination := map[string]string{
-		"static/favicon.ico": fmt.Sprintf("%s/favicon.ico", destination),
-		"static/robots.txt":  fmt.Sprintf("%s/robots.txt", destination),
-		"static/about.png":   fmt.Sprintf("%s/about.png", destination),
+		"static/favicon.ico": filepath.Join(destination, "favicon.ico"),
+		"static/robots.txt":  filepath.Join(destination, "robots.txt"),
+		"static/about.png":   filepath.Join(destination, "about.png"),
 	}
 	templateToFile := map[string]string{
-		"static/about.html": fmt.Sprintf("%s/about/index.html", destination),
+		"static/about.html": filepath.Join(destination, "/about/index.html"),
 	}
 	statg := StaticsGenerator{&StaticsConfig{
 		FileToDestination: fileToDestination,
@@ -197,7 +198,7 @@ func clearAndCreateDestination(path string) error {
 }
 
 func writeIndexHTML(path, pageTitle string, metaDescription string, content template.HTML, t *template.Template) error {
-	filePath := fmt.Sprintf("%s/index.html", path)
+	filePath := filepath.Join(path, "index.html")
 	f, err := os.Create(filePath)
 	if err != nil {
 		return fmt.Errorf("error creating file %s: %v", filePath, err)

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -38,7 +39,7 @@ func (g *TagsGenerator) Generate() error {
 	tagPostsMap := g.Config.TagPostsMap
 	t := g.Config.Template
 	destination := g.Config.Destination
-	tagsPath := fmt.Sprintf("%s/tags", destination)
+	tagsPath := filepath.Join(destination, "tags")
 	if err := clearAndCreateDestination(tagsPath); err != nil {
 		return err
 	}
@@ -46,7 +47,7 @@ func (g *TagsGenerator) Generate() error {
 		return err
 	}
 	for tag, tagPosts := range tagPostsMap {
-		tagPagePath := fmt.Sprintf("%s/%s", tagsPath, tag)
+		tagPagePath := filepath.Join(tagsPath, tag)
 		if err := generateTagPage(tag, tagPosts, t, tagPagePath); err != nil {
 			return err
 		}

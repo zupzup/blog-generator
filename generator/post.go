@@ -10,6 +10,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -44,7 +45,7 @@ func (g *PostGenerator) Generate() error {
 	destination := g.Config.Destination
 	t := g.Config.Template
 	fmt.Printf("\tGenerating Post: %s...\n", post.Meta.Title)
-	staticPath := fmt.Sprintf("%s%s", destination, post.Name)
+	staticPath := filepath.Join(destination, post.Name)
 	if err := os.Mkdir(staticPath, os.ModePerm); err != nil {
 		return fmt.Errorf("error creating directory at %s: %v", staticPath, err)
 	}
@@ -80,7 +81,7 @@ func newPost(path string) (*Post, error) {
 }
 
 func copyImagesDir(source, destination string) (err error) {
-	path := fmt.Sprintf("%s/images", destination)
+	path := filepath.Join(destination, "images")
 	if err := os.Mkdir(path, os.ModePerm); err != nil {
 		return fmt.Errorf("error creating images directory at %s: %v", path, err)
 	}
@@ -89,8 +90,8 @@ func copyImagesDir(source, destination string) (err error) {
 		return fmt.Errorf("error reading directory %s: %v", path, err)
 	}
 	for _, file := range files {
-		src := fmt.Sprintf("%s/%s", source, file.Name())
-		dst := fmt.Sprintf("%s/%s", path, file.Name())
+		src := filepath.Join(source, file.Name())
+		dst := filepath.Join(path, file.Name())
 		if err := copyFile(src, dst); err != nil {
 			return err
 		}
@@ -99,7 +100,7 @@ func copyImagesDir(source, destination string) (err error) {
 }
 
 func getMeta(path string) (*Meta, error) {
-	filePath := fmt.Sprintf("%s/meta.yml", path)
+	filePath := filepath.Join(path, "meta.yml")
 	metaraw, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("error while reading file %s: %v", filePath, err)
@@ -118,7 +119,7 @@ func getMeta(path string) (*Meta, error) {
 }
 
 func getHTML(path string) ([]byte, error) {
-	filePath := fmt.Sprintf("%s/post.md", path)
+	filePath := filepath.Join(path, "post.md")
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("error while reading file %s: %v", filePath, err)
@@ -133,7 +134,7 @@ func getHTML(path string) ([]byte, error) {
 }
 
 func getImages(path string) (string, []string, error) {
-	dirPath := fmt.Sprintf("%s/images", path)
+	dirPath := filepath.Join(path, "images")
 	files, err := ioutil.ReadDir(dirPath)
 	if err != nil {
 		if os.IsNotExist(err) {

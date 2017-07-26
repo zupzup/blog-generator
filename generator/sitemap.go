@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/beevik/etree"
 	"os"
+	"path/filepath"
 )
 
 // SitemapGenerator object
@@ -46,7 +47,7 @@ func (g *SitemapGenerator) Generate() error {
 		addURL(urlSet, post.Name[1:], post.Images)
 	}
 
-	filePath := fmt.Sprintf("%s/sitemap.xml", destination)
+	filePath := filepath.Join(destination, "sitemap.xml")
 	f, err := os.Create(filePath)
 	if err != nil {
 		return fmt.Errorf("error creating file %s: %v", filePath, err)

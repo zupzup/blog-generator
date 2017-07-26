@@ -98,7 +98,7 @@ func getContentFolders(path string) ([]string, error) {
 	}
 	for _, file := range files {
 		if file.IsDir() && file.Name()[0] != '.' {
-			result = append(result, fmt.Sprintf("%s/%s", path, file.Name()))
+			result = append(result, filepath.Join(path, file.Name()))
 		}
 	}
 	return result, nil

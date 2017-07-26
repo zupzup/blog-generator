@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/beevik/etree"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -49,7 +50,7 @@ func (g *RSSGenerator) Generate() error {
 		}
 	}
 
-	filePath := fmt.Sprintf("%s/index.xml", destination)
+	filePath := filepath.Join(destination, "index.xml")
 	f, err := os.Create(filePath)
 	if err != nil {
 		return fmt.Errorf("error creating file %s: %v", filePath, err)
