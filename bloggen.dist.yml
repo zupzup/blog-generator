@@ -1,0 +1,23 @@
+generator:
+    repo: 'https://github.com/zupzup/blog'
+    tmp: 'tmp'
+    dest: 'www'
+blog:
+    url: 'https://www.zupzup.org'
+    language: 'en-us'
+    description: 'A blog about Go, JavaScript, Open Source and Programming in General'
+    dateformat: '02.01.2006'
+    title: 'zupzup'
+    author: 'Mario Zupan'
+    frontpageposts: 10
+    statics:
+        files:
+            - src: 'static/favicon.ico'
+              dest: 'favicon.ico'
+            - src: 'static/robots.txt'
+              dest: 'robots.txt'
+            - src: 'static/about.png'
+              dest: 'about.png'
+        templates:
+            - src: 'static/about.html'
+              dest: 'about'

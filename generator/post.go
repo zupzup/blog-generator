@@ -37,6 +37,7 @@ type PostConfig struct {
 	Post        *Post
 	Destination string
 	Template    *template.Template
+	Writer      *IndexWriter
 }
 
 // Generate generates a post
@@ -55,15 +56,15 @@ func (g *PostGenerator) Generate() error {
 		}
 	}
 
-	if err := writeIndexHTML(staticPath, post.Meta.Title, post.Meta.Short, template.HTML(string(post.HTML)), t); err != nil {
+	if err := g.Config.Writer.WriteIndexHTML(staticPath, post.Meta.Title, post.Meta.Short, template.HTML(string(post.HTML)), t); err != nil {
 		return err
 	}
 	fmt.Printf("\tFinished generating Post: %s...\n", post.Meta.Title)
 	return nil
 }
 
-func newPost(path string) (*Post, error) {
-	meta, err := getMeta(path)
+func newPost(path, dateFormat string) (*Post, error) {
+	meta, err := getMeta(path, dateFormat)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +100,7 @@ func copyImagesDir(source, destination string) (err error) {
 	return nil
 }
 
-func getMeta(path string) (*Meta, error) {
+func getMeta(path, dateFormat string) (*Meta, error) {
 	filePath := filepath.Join(path, "meta.yml")
 	metaraw, err := ioutil.ReadFile(filePath)
 	if err != nil {

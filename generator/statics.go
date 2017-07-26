@@ -20,6 +20,7 @@ type StaticsConfig struct {
 	FileToDestination map[string]string
 	TemplateToFile    map[string]string
 	Template          *template.Template
+	Writer            *IndexWriter
 }
 
 // Generate creates the static pages
@@ -44,7 +45,7 @@ func (g *StaticsGenerator) Generate() error {
 		if err != nil {
 			return fmt.Errorf("error reading file %s: %v", k, err)
 		}
-		if err := writeIndexHTML(getFolder(v), getTitle(k), getTitle(k), template.HTML(content), t); err != nil {
+		if err := g.Config.Writer.WriteIndexHTML(getFolder(v), getTitle(k), getTitle(k), template.HTML(content), t); err != nil {
 			return err
 		}
 	}

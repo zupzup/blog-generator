@@ -13,6 +13,7 @@ A static blog generator using a configurable GitHub repository as a data-source.
 * Archive 
 * Configurable Static Pages 
 * Tags 
+* File-Based Configuration
 
 ## Installation
 
@@ -20,57 +21,47 @@ A static blog generator using a configurable GitHub repository as a data-source.
 go get github.com/zupzup/blog-generator
 ```
 
-## Usage
+## Usage & Customization
+
+### Configuration
+
+The tool can be configured using a config file called `bloggen.yml`. There is a `bloggen.dist.yml` in the repository you can use as a template.
+
+Example Config File:
+
+```yml
+generator:
+    repo: 'https://github.com/zupzup/blog'
+    tmp: 'tmp'
+    dest: 'www'
+blog:
+    url: 'https://www.zupzup.org'
+    language: 'en-us'
+    description: 'A blog about Go, JavaScript, Open Source and Programming in General'
+    dateformat: '02.01.2006'
+    title: 'zupzup'
+    author: 'Mario Zupan'
+    frontpageposts: 10
+    statics:
+        files:
+            - src: 'static/favicon.ico'
+              dest: 'favicon.ico'
+            - src: 'static/robots.txt'
+              dest: 'robots.txt'
+            - src: 'static/about.png'
+              dest: 'about.png'
+        templates:
+            - src: 'static/about.html'
+              dest: 'about'
+```
+
+### Running
 
 Just execute
 
 ```bash
-blog-generator -repo git@github.com:username/repo.git
+blog-generator
 ```
-
-in this repository's root directory.
-
-## Customization
-
-### CLI Configuration 
-
-To see the available command-line flags, execute
-
-```shell
-blog-generator -h
-```
-
-Available flags:
-
-- **`-repo`:** Source Repository URL **(mandatory)**
-- **`-destfolder`:** The output folder of the static blog **(default "./www")**
-- **`-tmpfolder`:** The folder where the data-source repo is checked out to **(default "./tmp")**
-
-Example:
-
-```bash
-blog-generator -repo https://github.com/zupzup/blog -tmpfolder ./tmp -destfolder ./www
-```
-
-### Configure the Generator
-
-Set the following constants in `generator/generator.go`
-```go
-// url of the blog
-const blogURL = "https://www.someblog.com"
-// blog language
-const blogLanguage = "en-us"
-// blog description
-const blogDescription = "some description..."
-// date format
-const dateFormat string = "02.01.2006"
-// blog title
-const blogTitle string = "my Blog's Title"
-// displayed posts on landing page
-const numPostsFrontPage int = 10
-```
-
-You can define and configure the different generators in the `runTasks` function within `generator/generator.go`.
 
 ### Templates
 
