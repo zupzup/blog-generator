@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"path/filepath"
 	"strings"
 )
 
@@ -30,11 +31,10 @@ type ListingConfig struct {
 	IsIndex                bool
 }
 
-const shortTemplatePath string = "static/short.html"
-const archiveLinkTemplatePath string = "static/archiveLink.html"
-
 // Generate starts the listing generation
 func (g *ListingGenerator) Generate() error {
+	shortTemplatePath := filepath.Join("static", "short.html")
+	archiveLinkTemplatePath := filepath.Join("static", "archiveLink.html")
 	posts := g.Config.Posts
 	t := g.Config.Template
 	destination := g.Config.Destination

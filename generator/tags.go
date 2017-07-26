@@ -31,8 +31,6 @@ type TagsConfig struct {
 	Destination string
 }
 
-const tagsTemplatePath string = "static/tags.html"
-
 // Generate creates the tags page
 func (g *TagsGenerator) Generate() error {
 	fmt.Println("\tGenerating Tags...")
@@ -57,6 +55,7 @@ func (g *TagsGenerator) Generate() error {
 }
 
 func generateTagIndex(tagPostsMap map[string][]*Post, t *template.Template, destination string) error {
+	tagsTemplatePath := filepath.Join("static", "tags.html")
 	tmpl, err := getTemplate(tagsTemplatePath)
 	if err != nil {
 		return err

@@ -58,12 +58,12 @@ const blogLanguage = "en-us"
 const blogDescription = "A blog about Go, JavaScript and Programming in General"
 const defaultMeta = "A blog about Go, JavaScript, Open Source and Programming in General"
 const dateFormat string = "02.01.2006"
-const templatePath string = "static/template.html"
 const blogTitle string = "zupzup"
 const numPostsFrontPage int = 10
 
 // Generate starts the static blog generation
 func (g *SiteGenerator) Generate() error {
+	templatePath := filepath.Join("static", "template.html")
 	fmt.Println("Generating Site...")
 	sources := g.Config.Sources
 	destination := g.Config.Destination
@@ -219,7 +219,7 @@ func writeIndexHTML(path, pageTitle string, metaDescription string, content temp
 		MetaDescription: metaDesc,
 	}
 	if err := t.Execute(w, td); err != nil {
-		return fmt.Errorf("error executing template %s: %v", templatePath, err)
+		return fmt.Errorf("error executing template %s: %v", filePath, err)
 	}
 	if err := w.Flush(); err != nil {
 		return fmt.Errorf("error writing file %s: %v", filePath, err)
@@ -252,7 +252,7 @@ func createTagPostsMap(posts []*Post) map[string][]*Post {
 func getTemplate(path string) (*template.Template, error) {
 	t, err := template.ParseFiles(path)
 	if err != nil {
-		return nil, fmt.Errorf("error reading template %s: %v", templatePath, err)
+		return nil, fmt.Errorf("error reading template %s: %v", path, err)
 	}
 	return t, nil
 }

@@ -64,8 +64,6 @@ const blogLanguage = "en-us"
 const blogDescription = "some description..."
 // date format
 const dateFormat string = "02.01.2006"
-// main Template
-const templatePath string = "static/template.html"
 // blog title
 const blogTitle string = "my Blog's Title"
 // displayed posts on landing page
