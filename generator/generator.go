@@ -3,6 +3,7 @@ package generator
 import (
 	"bufio"
 	"fmt"
+	"github.com/zupzup/blog-generator/config"
 	"html/template"
 	"os"
 	"path/filepath"
@@ -46,6 +47,7 @@ type SiteGenerator struct {
 type SiteConfig struct {
 	Sources     []string
 	Destination string
+	Config      *config.Config
 }
 
 // New creates a new SiteGenerator

@@ -27,6 +27,7 @@ func Run() {
 	g := generator.New(&generator.SiteConfig{
 		Sources:     dirs,
 		Destination: cfg.Generator.Dest,
+		Config:      cfg,
 	})
 
 	err = g.Generate()
