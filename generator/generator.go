@@ -62,6 +62,11 @@ const dateFormat string = "02.01.2006"
 const blogTitle string = "zupzup"
 const numPostsFrontPage int = 10
 
+// TODO: use config instead of constants
+// TODO: add all statics to sitemap.go
+// TODO: statics!
+// TODO: update docs in readme.md
+
 // Generate starts the static blog generation
 func (g *SiteGenerator) Generate() error {
 	templatePath := filepath.Join("static", "template.html")
