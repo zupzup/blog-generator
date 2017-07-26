@@ -55,8 +55,7 @@ func New(config *SiteConfig) *SiteGenerator {
 
 const blogURL = "https://www.zupzup.org"
 const blogLanguage = "en-us"
-const blogDescription = "A blog about Go, JavaScript and Programming in General"
-const defaultMeta = "A blog about Go, JavaScript, Open Source and Programming in General"
+const blogDescription = "A blog about Go, JavaScript, Open Source and Programming in General"
 const dateFormat string = "02.01.2006"
 const blogTitle string = "zupzup"
 const numPostsFrontPage int = 10
@@ -151,7 +150,7 @@ func runTasks(posts []*Post, t *template.Template, destination string) error {
 		"static/about.png":   filepath.Join(destination, "about.png"),
 	}
 	templateToFile := map[string]string{
-		"static/about.html": filepath.Join(destination, "/about/index.html"),
+		"static/about.html": filepath.Join(destination, "about", "index.html"),
 	}
 	statg := StaticsGenerator{&StaticsConfig{
 		FileToDestination: fileToDestination,
@@ -206,7 +205,7 @@ func writeIndexHTML(path, pageTitle string, metaDescription string, content temp
 	defer f.Close()
 	metaDesc := metaDescription
 	if metaDescription == "" {
-		metaDesc = defaultMeta
+		metaDesc = blogDescription
 	}
 	w := bufio.NewWriter(f)
 	td := IndexData{
