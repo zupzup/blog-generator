@@ -69,7 +69,7 @@ func generateTagIndex(tagPostsMap map[string][]*Post, t *template.Template, dest
 	if err := tmpl.Execute(&buf, tags); err != nil {
 		return fmt.Errorf("error executing template %s: %v", tagsTemplatePath, err)
 	}
-	if err := writeIndexHTML(destination, "Tags", template.HTML(buf.String()), t); err != nil {
+	if err := writeIndexHTML(destination, "Tags", "Tags", template.HTML(buf.String()), t); err != nil {
 		return err
 	}
 	return nil

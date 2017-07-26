@@ -22,12 +22,13 @@ type Meta struct {
 
 // IndexData is a data container for the landing page
 type IndexData struct {
-	HTMLTitle     string
-	PageTitle     string
-	Content       template.HTML
-	Year          int
-	Name          string
-	CanonicalLink string
+	HTMLTitle       string
+	PageTitle       string
+	Content         template.HTML
+	Year            int
+	Name            string
+	CanonicalLink   string
+	MetaDescription string
 }
 
 // Generator interface
@@ -54,6 +55,7 @@ func New(config *SiteConfig) *SiteGenerator {
 const blogURL = "https://www.zupzup.org"
 const blogLanguage = "en-us"
 const blogDescription = "A blog about Go, JavaScript and Programming in General"
+const defaultMeta = "A blog about Go, JavaScript, Open Source and Programming in General"
 const dateFormat string = "02.01.2006"
 const templatePath string = "static/template.html"
 const blogTitle string = "zupzup"
@@ -194,21 +196,26 @@ func clearAndCreateDestination(path string) error {
 	return os.Mkdir(path, os.ModePerm)
 }
 
-func writeIndexHTML(path, pageTitle string, content template.HTML, t *template.Template) error {
+func writeIndexHTML(path, pageTitle string, metaDescription string, content template.HTML, t *template.Template) error {
 	filePath := fmt.Sprintf("%s/index.html", path)
 	f, err := os.Create(filePath)
 	if err != nil {
 		return fmt.Errorf("error creating file %s: %v", filePath, err)
 	}
 	defer f.Close()
+	metaDesc := metaDescription
+	if metaDescription == "" {
+		metaDesc = defaultMeta
+	}
 	w := bufio.NewWriter(f)
 	td := IndexData{
-		Name:          "Mario Zupan",
-		Year:          time.Now().Year(),
-		HTMLTitle:     getHTMLTitle(pageTitle),
-		PageTitle:     pageTitle,
-		Content:       content,
-		CanonicalLink: buildCanonicalLink(path, blogURL),
+		Name:            "Mario Zupan",
+		Year:            time.Now().Year(),
+		HTMLTitle:       getHTMLTitle(pageTitle),
+		PageTitle:       pageTitle,
+		Content:         content,
+		CanonicalLink:   buildCanonicalLink(path, blogURL),
+		MetaDescription: metaDesc,
 	}
 	if err := t.Execute(w, td); err != nil {
 		return fmt.Errorf("error executing template %s: %v", templatePath, err)
