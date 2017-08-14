@@ -76,7 +76,7 @@ func newPost(path, dateFormat string) (*Post, error) {
 	if err != nil {
 		return nil, err
 	}
-	name := path[strings.LastIndex(path, "/"):]
+	name := filepath.Base(path)
 
 	return &Post{Name: name, Meta: meta, HTML: html, ImagesDir: imagesDir, Images: images}, nil
 }

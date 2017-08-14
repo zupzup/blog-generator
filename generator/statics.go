@@ -91,7 +91,7 @@ func copyFile(src, dst string) (err error) {
 }
 
 func getFolder(path string) string {
-	return path[:strings.LastIndex(path, "/")]
+	return filepath.Dir(path)
 }
 
 func getTitle(path string) string {
