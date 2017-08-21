@@ -47,7 +47,7 @@ func (g *ListingGenerator) Generate() error {
 	var postBlocks []string
 	for _, post := range posts {
 		meta := post.Meta
-		link := fmt.Sprintf("%s/", post.Name)
+		link := fmt.Sprintf("/%s/", post.Name)
 		ld := ListingData{
 			Title:      meta.Title,
 			Date:       meta.Date,
