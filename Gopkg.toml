@@ -34,7 +34,8 @@
   version = "1.4.0"
 
 [[constraint]]
-  name = "github.com/sourcegraph/syntaxhighlight"
+  name = "gopkg.in/yaml.v2"
 
 [[constraint]]
-  name = "gopkg.in/yaml.v2"
+  name = "github.com/alecthomas/chroma"
+  version = "0.5.0"

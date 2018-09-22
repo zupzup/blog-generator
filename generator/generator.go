@@ -2,7 +2,10 @@ package generator
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
+	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/alecthomas/chroma/styles"
 	"github.com/zupzup/blog-generator/config"
 	"html/template"
 	"os"
@@ -31,6 +34,7 @@ type IndexData struct {
 	Name            string
 	CanonicalLink   string
 	MetaDescription string
+	HighlightCSS    template.CSS
 }
 
 // Generator interface
@@ -234,6 +238,11 @@ func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, co
 	if metaDescription == "" {
 		metaDesc = i.BlogDescription
 	}
+	hlbuf := bytes.Buffer{}
+	hlw := bufio.NewWriter(&hlbuf)
+	formatter := html.New(html.WithClasses())
+	formatter.WriteCSS(hlw, styles.MonokaiLight)
+	hlw.Flush()
 	w := bufio.NewWriter(f)
 	td := IndexData{
 		Name:            i.BlogAuthor,
@@ -243,6 +252,7 @@ func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, co
 		Content:         content,
 		CanonicalLink:   buildCanonicalLink(path, i.BlogURL),
 		MetaDescription: metaDesc,
+		HighlightCSS:    template.CSS(hlbuf.String()),
 	}
 	if err := t.Execute(w, td); err != nil {
 		return fmt.Errorf("error executing template %s: %v", filePath, err)

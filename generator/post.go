@@ -1,11 +1,14 @@
 package generator
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/alecthomas/chroma/lexers"
+	"github.com/alecthomas/chroma/styles"
 	"github.com/russross/blackfriday"
-	"github.com/sourcegraph/syntaxhighlight"
 	"gopkg.in/yaml.v2"
 	"html/template"
 	"io/ioutil"
@@ -158,9 +161,23 @@ func replaceCodeParts(htmlFile []byte) (string, error) {
 	}
 	// find code-parts via css selector and replace them with highlighted versions
 	doc.Find("code[class*=\"language-\"]").Each(func(i int, s *goquery.Selection) {
+		class, _ := s.Attr("class")
+		lang := strings.TrimPrefix(class, "language-")
 		oldCode := s.Text()
-		formatted, _ := syntaxhighlight.AsHTML([]byte(oldCode))
-		s.SetHtml(string(formatted))
+		lexer := lexers.Get(lang)
+		formatter := html.New(html.WithClasses())
+		iterator, err := lexer.Tokenise(nil, string(oldCode))
+		if err != nil {
+			fmt.Printf("ERROR during syntax highlighting, %v", err)
+		}
+		b := bytes.Buffer{}
+		buf := bufio.NewWriter(&b)
+		err = formatter.Format(buf, styles.GitHub, iterator)
+		if err != nil {
+			fmt.Printf("ERROR during syntax highlighting, %v", err)
+		}
+		buf.Flush()
+		s.SetHtml(b.String())
 	})
 	new, err := doc.Html()
 	if err != nil {
