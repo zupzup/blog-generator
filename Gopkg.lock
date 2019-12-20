@@ -10,7 +10,7 @@
   version = "v1.1.0"
 
 [[projects]]
-  digest = "1:055c07e4af5ddccc93ad394e04e85ca76c3cb2e067b18b97ac3ffd49cb04a339"
+  digest = "1:553a4ad0b27c500227c3f2ecbe3b74a3d055ecc77a21486a8e9fb35724d5edbd"
   name = "github.com/alecthomas/chroma"
   packages = [
     ".",
@@ -45,8 +45,8 @@
     "styles",
   ]
   pruneopts = ""
-  revision = "5d7fef2ae60b501bbf28d476c3f273b8017d8261"
-  version = "v0.5.0"
+  revision = "28dcb8565c0eca2136ca9256a240a9fe2701b553"
+  version = "v0.7.0"
 
 [[projects]]
   branch = "master"
