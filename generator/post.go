@@ -165,7 +165,7 @@ func replaceCodeParts(htmlFile []byte) (string, error) {
 		lang := strings.TrimPrefix(class, "language-")
 		oldCode := s.Text()
 		lexer := lexers.Get(lang)
-		formatter := html.New(html.WithClasses())
+		formatter := html.New(html.WithClasses(true))
 		iterator, err := lexer.Tokenise(nil, string(oldCode))
 		if err != nil {
 			fmt.Printf("ERROR during syntax highlighting, %v", err)

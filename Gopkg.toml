@@ -38,4 +38,4 @@
 
 [[constraint]]
   name = "github.com/alecthomas/chroma"
-  version = "0.5.0"
+  version = "0.7.0"

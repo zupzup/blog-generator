@@ -240,7 +240,7 @@ func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, co
 	}
 	hlbuf := bytes.Buffer{}
 	hlw := bufio.NewWriter(&hlbuf)
-	formatter := html.New(html.WithClasses())
+	formatter := html.New(html.WithClasses(true))
 	formatter.WriteCSS(hlw, styles.MonokaiLight)
 	hlw.Flush()
 	w := bufio.NewWriter(f)
