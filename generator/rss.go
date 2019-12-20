@@ -50,7 +50,7 @@ func (g *RSSGenerator) Generate() error {
 	atomLink.CreateAttr("type", "application/rss+xml")
 
 	for _, post := range posts {
-		if err := addItem(channel, post, fmt.Sprintf("%s/%s/", g.Config.BlogURL, post.Name[1:]), g.Config.DateFormat); err != nil {
+		if err := addItem(channel, post, fmt.Sprintf("%s/%s/", g.Config.BlogURL, post.Name), g.Config.DateFormat); err != nil {
 			return err
 		}
 	}
