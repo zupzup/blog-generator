@@ -36,6 +36,7 @@ func (g *SitemapGenerator) Generate() error {
 	url := urlSet.CreateElement("url")
 	loc := url.CreateElement("loc")
 	loc.SetText(g.Config.BlogURL)
+	urlTags := (g.Config.BlogURL + "/tags")
 
 	for _, staticURL := range g.Config.Statics {
 		addURL(urlSet, staticURL, g.Config.BlogURL, nil)
@@ -44,7 +45,7 @@ func (g *SitemapGenerator) Generate() error {
 	addURL(urlSet, "tags", g.Config.BlogURL, nil)
 
 	for tag := range tagPostsMap {
-		addURL(urlSet, tag, g.Config.BlogURL, nil)
+		addURL(urlSet, tag, urlTags, nil)
 	}
 
 	for _, post := range posts {
