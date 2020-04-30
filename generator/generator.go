@@ -4,9 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/alecthomas/chroma/formatters/html"
-	"github.com/alecthomas/chroma/styles"
-	"github.com/zupzup/blog-generator/config"
 	"html/template"
 	"os"
 	"path/filepath"
@@ -14,6 +11,10 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/alecthomas/chroma/styles"
+	"github.com/zupzup/blog-generator/config"
 )
 
 // Meta is a data container for Metadata
@@ -179,7 +180,10 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 		Template:          t,
 		Writer:            indexWriter,
 	}}
-	generators = append(generators, &fg, &ag, &tg, &sg, &rg, &statg)
+	generators = append(generators, &fg, &ag, &tg, &sg, &statg)
+	if cfg.Generator.UseRSS {
+		generators = append(generators, &rg)
+	}
 
 	for _, generator := range generators {
 		wg.Add(1)

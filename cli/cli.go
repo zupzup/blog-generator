@@ -2,9 +2,10 @@ package cli
 
 import (
 	"fmt"
-	yaml "gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+
+	yaml "gopkg.in/yaml.v2"
 
 	"github.com/zupzup/blog-generator/config"
 	"github.com/zupzup/blog-generator/datasource"

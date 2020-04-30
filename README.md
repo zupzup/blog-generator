@@ -34,6 +34,7 @@ generator:
     repo: 'https://github.com/zupzup/blog'
     tmp: 'tmp'
     dest: 'www'
+    userss: true
 blog:
     url: 'https://www.zupzup.org'
     language: 'en-us'
