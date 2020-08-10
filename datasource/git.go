@@ -2,6 +2,7 @@ package datasource
 
 import (
 	"fmt"
+	"github.com/zupzup/blog-generator/config"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -11,7 +12,14 @@ import (
 type GitDataSource struct{}
 
 // Fetch creates the output folder, clears it and clones the repository there
-func (ds *GitDataSource) Fetch(from, to string) ([]string, error) {
+func (ds *GitDataSource) Fetch(cfg *config.Config) ([]string, error) {
+	from := cfg.Generator.Repo
+	to := cfg.Generator.Tmp
+	branch := cfg.Generator.Branch
+	if branch == "" {
+		branch = "master"
+	}
+
 	fmt.Printf("Fetching data from %s into %s...\n", from, to)
 	if err := createFolderIfNotExist(to); err != nil {
 		return nil, err
@@ -19,7 +27,7 @@ func (ds *GitDataSource) Fetch(from, to string) ([]string, error) {
 	if err := clearFolder(to); err != nil {
 		return nil, err
 	}
-	if err := cloneRepo(to, from); err != nil {
+	if err := cloneRepo(to, from, branch); err != nil {
 		return nil, err
 	}
 	dirs, err := getContentFolders(to)
@@ -62,7 +70,7 @@ func clearFolder(path string) error {
 	return nil
 }
 
-func cloneRepo(path, repositoryURL string) error {
+func cloneRepo(path, repositoryURL, branch string) error {
 	cmdName := "git"
 	initArgs := []string{"init", "."}
 	cmd := exec.Command(cmdName, initArgs...)
@@ -76,11 +84,11 @@ func cloneRepo(path, repositoryURL string) error {
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("error setting remote %s: %v", repositoryURL, err)
 	}
-	pullArgs := []string{"pull", "origin", "master"}
+	pullArgs := []string{"pull", "origin", branch}
 	cmd = exec.Command(cmdName, pullArgs...)
 	cmd.Dir = path
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("error pulling master at %s: %v", path, err)
+		return fmt.Errorf("error pulling %s at %s: %v", branch, path, err)
 	}
 	return nil
 }

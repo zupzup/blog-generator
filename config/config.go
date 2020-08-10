@@ -5,6 +5,7 @@ type Config struct {
 	Generator struct {
 		Repo   string
 		Tmp    string
+		Branch string
 		Dest   string
 		UseRSS bool
 	}

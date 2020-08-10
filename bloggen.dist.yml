@@ -1,5 +1,6 @@
 generator:
     repo: 'https://github.com/zupzup/blog'
+    branch: 'main'
     tmp: 'tmp'
     dest: 'www'
     userss: true

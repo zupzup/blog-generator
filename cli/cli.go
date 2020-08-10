@@ -19,7 +19,7 @@ func Run() {
 		log.Fatal("There was an error while reading the configuration file: ", err)
 	}
 	ds := datasource.New()
-	dirs, err := ds.Fetch(cfg.Generator.Repo, cfg.Generator.Tmp)
+	dirs, err := ds.Fetch(cfg)
 
 	if err != nil {
 		log.Fatal(err)
