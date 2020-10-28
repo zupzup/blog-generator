@@ -306,9 +306,6 @@ func getNumOfPagesOnFrontpage(posts []*Post, numPosts int) int {
 
 func buildCanonicalLink(path, baseURL string) string {
 	parts := strings.Split(path, "/")
-	if len(parts) > 2 {
-		return fmt.Sprintf("%s/%s/index.html", baseURL, strings.Join(parts[2:], "/"))
-	}
 	if len(parts) > 1 {
 		return fmt.Sprintf("%s/%s/index.html", baseURL, strings.Join(parts[1:], "/"))
 	}
