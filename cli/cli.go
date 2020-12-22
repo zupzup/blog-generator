@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"path/filepath"
+	"net/http"
 
 	yaml "gopkg.in/yaml.v2"
 
@@ -36,6 +38,28 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+// Start a local HTTP server for development/testing purposes
+func Serve() {
+	cwd, cwdErr:= os.Getwd()
+
+	if cwdErr != nil {
+		log.Fatal(cwdErr)
+	}
+
+	staticPath := filepath.Join(cwd, "www")
+	log.Printf("Serving directory %s", staticPath)
+	log.Println("HTTP Server listening on 127.0.0.1:8000")
+	fileSystemDir := http.FileServer(http.Dir(staticPath))
+	http.Handle("/", fileSystemDir)
+
+	err := http.ListenAndServe(":8000", nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
 
 func readConfig() (*config.Config, error) {
