@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"path/filepath"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	yaml "gopkg.in/yaml.v2"
 
@@ -42,7 +43,7 @@ func Run() {
 
 // Start a local HTTP server for development/testing purposes
 func Serve() {
-	cwd, cwdErr:= os.Getwd()
+	cwd, cwdErr := os.Getwd()
 
 	if cwdErr != nil {
 		log.Fatal(cwdErr)
