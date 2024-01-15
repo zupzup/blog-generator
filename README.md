@@ -11,7 +11,7 @@ A static blog generator using a configurable GitHub repository as a data-source.
 * RSS Feed
 * Code Highlighting
 * Archive 
-* Configurable Static Pages 
+* Configurable Static Pages
 * Tags 
 * File-Based Configuration
 
@@ -62,6 +62,14 @@ Just execute
 
 ```bash
 blog-generator
+```
+
+### Serving
+
+To run a local server serving the blog on http://127.0.0.1:8000, run
+
+```bash
+blog-generator -s
 ```
 
 ### Templates
