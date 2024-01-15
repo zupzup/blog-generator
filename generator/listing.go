@@ -74,7 +74,7 @@ func (g *ListingGenerator) Generate() error {
 		}
 		htmlBlocks = template.HTML(fmt.Sprintf("%s%s", htmlBlocks, template.HTML(lastBlock.String())))
 	}
-	if err := g.Config.Writer.WriteIndexHTML(destination, pageTitle, pageTitle, htmlBlocks, t); err != nil {
+	if err := g.Config.Writer.WriteIndexHTML(destination, pageTitle, pageTitle, htmlBlocks, t, ""); err != nil {
 		return err
 	}
 	return nil

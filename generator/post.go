@@ -4,18 +4,19 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"github.com/alecthomas/chroma/formatters/html"
-	"github.com/alecthomas/chroma/lexers"
-	"github.com/alecthomas/chroma/styles"
-	"github.com/russross/blackfriday"
-	"gopkg.in/yaml.v2"
 	"html/template"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/alecthomas/chroma/lexers"
+	"github.com/alecthomas/chroma/styles"
+	"github.com/russross/blackfriday"
+	"gopkg.in/yaml.v2"
 )
 
 // Post holds data for a post
@@ -59,7 +60,7 @@ func (g *PostGenerator) Generate() error {
 		}
 	}
 
-	if err := g.Config.Writer.WriteIndexHTML(staticPath, post.Meta.Title, post.Meta.Short, template.HTML(string(post.HTML)), t); err != nil {
+	if err := g.Config.Writer.WriteIndexHTML(staticPath, post.Meta.Title, post.Meta.Short, template.HTML(string(post.HTML)), t, post.Meta.Canonical); err != nil {
 		return err
 	}
 	fmt.Printf("\tFinished generating Post: %s...\n", post.Meta.Title)

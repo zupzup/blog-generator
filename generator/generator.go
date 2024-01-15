@@ -24,6 +24,7 @@ type Meta struct {
 	Date       string
 	Tags       []string
 	ParsedDate time.Time
+	Canonical  string
 }
 
 // IndexData is a data container for the landing page
@@ -231,7 +232,7 @@ type IndexWriter struct {
 }
 
 // WriteIndexHTML writes an index.html file
-func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, content template.HTML, t *template.Template) error {
+func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, content template.HTML, t *template.Template, canonicalLink string) error {
 	filePath := filepath.Join(path, "index.html")
 	f, err := os.Create(filePath)
 	if err != nil {
@@ -248,13 +249,18 @@ func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, co
 	formatter.WriteCSS(hlw, styles.MonokaiLight)
 	hlw.Flush()
 	w := bufio.NewWriter(f)
+
+	if canonicalLink == "" {
+		canonicalLink = buildCanonicalLink(path, i.BlogURL)
+	}
+
 	td := IndexData{
 		Name:            i.BlogAuthor,
 		Year:            time.Now().Year(),
 		HTMLTitle:       getHTMLTitle(pageTitle, i.BlogTitle),
 		PageTitle:       pageTitle,
 		Content:         content,
-		CanonicalLink:   buildCanonicalLink(path, i.BlogURL),
+		CanonicalLink:   canonicalLink,
 		MetaDescription: metaDesc,
 		HighlightCSS:    template.CSS(hlbuf.String()),
 	}
