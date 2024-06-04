@@ -81,12 +81,12 @@ func (g *ListingGenerator) Generate() error {
 }
 
 func calculateTimeToRead(input string) string {
-	// an average human reads about 200 wpm
-	var secondsPerWord = 60.0 / 200.0
+	// an average human reads about 200 wpm, but we use a bit more, since a lot of it will be code
+	var secondsPerWord = 60.0 / 250.0
 	// multiply with the amount of words
 	words := secondsPerWord * float64(len(strings.Split(input, " ")))
 	// add 12 seconds for each image
-	images := 12.0 * strings.Count(input, "<img")
+	images := 5.0 * strings.Count(input, "<img")
 	result := (words + float64(images)) / 60.0
 	if result < 1.0 {
 		result = 1.0
