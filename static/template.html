@@ -35,6 +35,14 @@
                 background-color: #008080;
                 color: #fff;
             }
+            #header #header-inner {
+                display: flex;
+                width: 740px;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #008080;
+                color: #fff;
+            }
             #header a {
                 color: #fff
             }
@@ -43,7 +51,7 @@
             }
             #header #logo {
                 flex: 1;
-                padding: 1em;
+                padding: 1em 0 1em 0;
                 vertical-align: top;
             }
             #header #logo #logotext {
@@ -77,7 +85,7 @@
             }
             #header #contact {
                 flex: 1;
-                padding: 1em;
+                padding: 1em 0 1em 0;
                 vertical-align: middle;
                 margin: auto;
                 text-align: right;
@@ -111,13 +119,13 @@
                 color: #000;
                 word-break: break-word;
                 word-wrap: break-word;
-                text-align: start;
+                text-align: justify;
             }
             #content p {
                 text-align: justify;
             }
             #content .short p {
-                text-align: start;
+                text-align: justify;
                 word-break: break-word;
                 word-wrap: break-word;
                 font-weight: 400;
@@ -129,6 +137,7 @@
             }
             #content .short h2 {
                 margin-bottom: 10px;
+                font-size: 22px;
             }
             #content .short .tags, .readmore, .datettr {
                 font-size: 14px;
@@ -149,8 +158,17 @@
                 }
                 #header #logo {
                     display: inline-block;
-                    width: 10%;
-                    padding: .2em 0 .2em .5em;
+                    max-width: 10%;
+                    padding: .5em 0 .5em 0;
+                }
+                #header #header-inner {
+                    display: flex;
+                    max-width: 740px;
+                    width: auto;
+                    margin-left: auto;
+                    margin-right: auto;
+                    background-color: #008080;
+                    color: #fff;
                 }
                 #header #logo #logotext {
                     display: none;
@@ -159,6 +177,7 @@
                     padding: .2em 0 .2em 0;
                     display: inline-block;
                     width: 80%;
+                    text-align: center;
                 }
                 #header #menu .menuitem {
                     width: 55px;
@@ -176,7 +195,7 @@
                     word-wrap: break-word;
                     line-height: 1.58;
                     letter-spacing: -.004em;
-                    text-align: start;
+                    text-align: justify;
                 }
                 #content .short p {
                     font-size: 16px;
@@ -225,93 +244,95 @@
     </head>
     <body>
         <div id="header">
-            <div id="logo">
-                <a href="/">
-                    <img alt="logo - small dude in pixel art" id="logoimage" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAC2UlEQVRYR72YS5LTMBCG5evEj+IE2TCV7FnwCHAJCnKJoTgFhBkWrJPFsMgeisJyVhyBMyC6W2pHVuxRy9ijqlRspa3+9He3JCdT8WbAJIOP/81PYT+20CY+6oAFD3jfAOhsTJOMfTGu5KGxQKGKokk9BBCCSPwQsMTwfxVKUmoUkPn1qUd+y51Vr4ZCI/GVplALMlRzDiWrXvZBTQ/kezH1TmXl5sKxqUE9EKsHajogY1w4Mjsm3evPShUvbJjCfuirwabqKjU30A0APR8E0vBL2VVwQqAa1GiHGxjXqWhjaBQCYfOgpgMiFxoUiTYIpVsktLuYA8imTQeobwuztI1TyApmWCGROpSP0Um7GGgCipkbVUBeWVtIMZdjggdbjJgHNjRa30I1DeOjIkXx7AIGK9JVociXyIi0x3A0t53J5vnTC0IERzBsWkMmAVBZluJoSIEoIZrmy4BE5+0uz88weZ63a5Q0bElATNMPZhTDoCpN04BSBT1yPB7VcrkUqZQCZMsm0sJVfb/fq/V6Lc6jZKDdbqc2m+4ehn3Ywv7D4aBWqxX9Jk3sUUC+SAjBQKF4VVVBGPN5gTA3/IYOsa/93gLAX2uhr+0GklJpyQpxjpxOJ7VYLCgUCITX2LA/f2tVQaDZFeIZh0DomKuLIVi5WXMIB/fDxqHiMLKCWPLBwkhckSKNGwQD2C0T1pmYQhhKBEpdHKPEfUCsUl8OcZgQqK5rWhz5RDm1QnAEwb0MdKdN1FYQh4a/uc/goc7WGH2ykg7+UQGiBp5C7ZkooyPGORx8zcpxmPBFgCjsUVbkS2TkQ/F1CIQKYW5hP+9hKaHicVOB+Dk4H3VDxtXl55w7dojVSTIcSu6gv+82adJJxn7oHj15E2X5+fVD8qRHA11t7fv9n9/fFTrmez90d9f0np/kI8nYV+hq+9EB/SCgx+/sPb1t0P9pRn17/3p2oOgBrSeOSZP+B7Q7ZDSN5kdTAAAAAElFTkSuQmCC">
-                    <div id="logotext">
-                        <strong>zupzup</strong>
-                        <small>I &#9825; Programming</small>
-                    </div>
-                </a>
-            </div>
-            <ul id="menu">
-                <li>
-                    <div class="menuitem">
-                        <a href="/">
-                            <svg width="70px" height="35px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>home</title>
-                                <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="home" fill="#ffffff">
-                                        <path d="M16,9 L13,6 L13,2 L11,2 L11,4 L8,1 L0,9 L2,9 L3,14 C3,14.55 3.45,15 4,15 L12,15 C12.55,15 13,14.55 13,14 L14,9 L16,9 L16,9 Z M12,14 L9,14 L9,10 L7,10 L7,14 L4,14 L2.81,7.69 L8,2.5 L13.19,7.69 L12,14 L12,14 Z" id="Shape"></path>
+            <div id="header-inner">
+                <div id="logo">
+                    <a href="/">
+                        <img alt="logo - small dude in pixel art" id="logoimage" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAC2UlEQVRYR72YS5LTMBCG5evEj+IE2TCV7FnwCHAJCnKJoTgFhBkWrJPFsMgeisJyVhyBMyC6W2pHVuxRy9ijqlRspa3+9He3JCdT8WbAJIOP/81PYT+20CY+6oAFD3jfAOhsTJOMfTGu5KGxQKGKokk9BBCCSPwQsMTwfxVKUmoUkPn1qUd+y51Vr4ZCI/GVplALMlRzDiWrXvZBTQ/kezH1TmXl5sKxqUE9EKsHajogY1w4Mjsm3evPShUvbJjCfuirwabqKjU30A0APR8E0vBL2VVwQqAa1GiHGxjXqWhjaBQCYfOgpgMiFxoUiTYIpVsktLuYA8imTQeobwuztI1TyApmWCGROpSP0Um7GGgCipkbVUBeWVtIMZdjggdbjJgHNjRa30I1DeOjIkXx7AIGK9JVociXyIi0x3A0t53J5vnTC0IERzBsWkMmAVBZluJoSIEoIZrmy4BE5+0uz88weZ63a5Q0bElATNMPZhTDoCpN04BSBT1yPB7VcrkUqZQCZMsm0sJVfb/fq/V6Lc6jZKDdbqc2m+4ehn3Ywv7D4aBWqxX9Jk3sUUC+SAjBQKF4VVVBGPN5gTA3/IYOsa/93gLAX2uhr+0GklJpyQpxjpxOJ7VYLCgUCITX2LA/f2tVQaDZFeIZh0DomKuLIVi5WXMIB/fDxqHiMLKCWPLBwkhckSKNGwQD2C0T1pmYQhhKBEpdHKPEfUCsUl8OcZgQqK5rWhz5RDm1QnAEwb0MdKdN1FYQh4a/uc/goc7WGH2ykg7+UQGiBp5C7ZkooyPGORx8zcpxmPBFgCjsUVbkS2TkQ/F1CIQKYW5hP+9hKaHicVOB+Dk4H3VDxtXl55w7dojVSTIcSu6gv+82adJJxn7oHj15E2X5+fVD8qRHA11t7fv9n9/fFTrmez90d9f0np/kI8nYV+hq+9EB/SCgx+/sPb1t0P9pRn17/3p2oOgBrSeOSZP+B7Q7ZDSN5kdTAAAAAElFTkSuQmCC">
+                        <div id="logotext">
+                            <strong>zupzup</strong>
+                            <small>I &#9825; Programming</small>
+                        </div>
+                    </a>
+                </div>
+                <ul id="menu">
+                    <li>
+                        <div class="menuitem">
+                            <a href="/">
+                                <svg width="70px" height="35px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>home</title>
+                                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="home" fill="#ffffff">
+                                            <path d="M16,9 L13,6 L13,2 L11,2 L11,4 L8,1 L0,9 L2,9 L3,14 C3,14.55 3.45,15 4,15 L12,15 C12.55,15 13,14.55 13,14 L14,9 L16,9 L16,9 Z M12,14 L9,14 L9,10 L7,10 L7,14 L4,14 L2.81,7.69 L8,2.5 L13.19,7.69 L12,14 L12,14 Z" id="Shape"></path>
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                            <div>Home</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="menuitem">
-                        <a href="/about/">
-                            <svg width="70px" height="35px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>about</title>
-                                <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="light-bulb" fill="#ffffff">
-                                        <path d="M6.5,0 C3.48,0 1,2.19 1,5 C1,5.92 1.55,7.25 2,8 C3.34,10.25 3.78,10.78 4,12 L4,13 L9,13 L9,12 C9.22,10.78 9.66,10.25 11,8 C11.45,7.25 12,5.92 12,5 C12,2.19 9.52,0 6.5,0 L6.5,0 Z M10.14,7.48 C9.89,7.92 9.67,8.28 9.47,8.59 C8.61,10 8.22,10.65 8.02,11.82 C8,11.87 8,11.93 8,11.99 L5,11.99 C5,11.93 5,11.86 4.98,11.82 C4.78,10.65 4.39,9.99 3.53,8.59 C3.33,8.28 3.11,7.92 2.86,7.48 C2.44,6.78 2,5.65 2,5 C2,2.8 4.02,1 6.5,1 C7.72,1 8.86,1.42 9.72,2.19 C10.55,2.94 11,3.94 11,5 C11,5.66 10.56,6.78 10.14,7.48 L10.14,7.48 Z M4,14 L9,14 C8.77,15.14 7.7,16 6.5,16 C5.3,16 4.23,15.14 4,14 L4,14 Z" id="Shape"></path>
+                                </svg>
+                                <div>Home</div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuitem">
+                            <a href="/about/">
+                                <svg width="70px" height="35px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>about</title>
+                                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="light-bulb" fill="#ffffff">
+                                            <path d="M6.5,0 C3.48,0 1,2.19 1,5 C1,5.92 1.55,7.25 2,8 C3.34,10.25 3.78,10.78 4,12 L4,13 L9,13 L9,12 C9.22,10.78 9.66,10.25 11,8 C11.45,7.25 12,5.92 12,5 C12,2.19 9.52,0 6.5,0 L6.5,0 Z M10.14,7.48 C9.89,7.92 9.67,8.28 9.47,8.59 C8.61,10 8.22,10.65 8.02,11.82 C8,11.87 8,11.93 8,11.99 L5,11.99 C5,11.93 5,11.86 4.98,11.82 C4.78,10.65 4.39,9.99 3.53,8.59 C3.33,8.28 3.11,7.92 2.86,7.48 C2.44,6.78 2,5.65 2,5 C2,2.8 4.02,1 6.5,1 C7.72,1 8.86,1.42 9.72,2.19 C10.55,2.94 11,3.94 11,5 C11,5.66 10.56,6.78 10.14,7.48 L10.14,7.48 Z M4,14 L9,14 C8.77,15.14 7.7,16 6.5,16 C5.3,16 4.23,15.14 4,14 L4,14 Z" id="Shape"></path>
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                            <div>About</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="menuitem">
-                        <a href="/tags/">
-                            <svg width="70px" height="35px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>tags</title>
-                                <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="tag" fill="#ffffff">
-                                        <path d="M7.73,1.73 C7.26,1.26 6.62,1 5.96,1 L3.5,1 C2.13,1 1,2.13 1,3.5 L1,5.97 C1,6.63 1.27,7.27 1.73,7.74 L7.79,13.8 C8.18,14.19 8.81,14.19 9.2,13.8 L13.79,9.21 C14.18,8.82 14.18,8.19 13.79,7.8 L7.73,1.73 L7.73,1.73 Z M2.38,7.09 C2.07,6.79 1.91,6.39 1.91,5.96 L1.91,3.5 C1.91,2.62 2.63,1.91 3.5,1.91 L5.97,1.91 C6.39,1.91 6.8,2.07 7.1,2.38 L13.24,8.51 L8.51,13.24 L2.38,7.09 L2.38,7.09 Z M3.01,3 L5.01,3 L5.01,5 L3,5 L3,3 L3.01,3 Z" id="Shape"></path>
+                                </svg>
+                                <div>About</div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuitem">
+                            <a href="/tags/">
+                                <svg width="70px" height="35px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>tags</title>
+                                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="tag" fill="#ffffff">
+                                            <path d="M7.73,1.73 C7.26,1.26 6.62,1 5.96,1 L3.5,1 C2.13,1 1,2.13 1,3.5 L1,5.97 C1,6.63 1.27,7.27 1.73,7.74 L7.79,13.8 C8.18,14.19 8.81,14.19 9.2,13.8 L13.79,9.21 C14.18,8.82 14.18,8.19 13.79,7.8 L7.73,1.73 L7.73,1.73 Z M2.38,7.09 C2.07,6.79 1.91,6.39 1.91,5.96 L1.91,3.5 C1.91,2.62 2.63,1.91 3.5,1.91 L5.97,1.91 C6.39,1.91 6.8,2.07 7.1,2.38 L13.24,8.51 L8.51,13.24 L2.38,7.09 L2.38,7.09 Z M3.01,3 L5.01,3 L5.01,5 L3,5 L3,3 L3.01,3 Z" id="Shape"></path>
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                            <div>Tags</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="menuitem">
-                        <a href="/archive/">
-                            <svg width="70px" height="35px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>archive</title>
-                                <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="book" fill="#ffffff">
-                                        <path d="M3,5 L7,5 L7,6 L3,6 L3,5 L3,5 Z M3,8 L7,8 L7,7 L3,7 L3,8 L3,8 Z M3,10 L7,10 L7,9 L3,9 L3,10 L3,10 Z M14,5 L10,5 L10,6 L14,6 L14,5 L14,5 Z M14,7 L10,7 L10,8 L14,8 L14,7 L14,7 Z M14,9 L10,9 L10,10 L14,10 L14,9 L14,9 Z M16,3 L16,12 C16,12.55 15.55,13 15,13 L9.5,13 L8.5,14 L7.5,13 L2,13 C1.45,13 1,12.55 1,12 L1,3 C1,2.45 1.45,2 2,2 L7.5,2 L8.5,3 L9.5,2 L15,2 C15.55,2 16,2.45 16,3 L16,3 Z M8,3.5 L7.5,3 L2,3 L2,12 L8,12 L8,3.5 L8,3.5 Z M15,3 L9.5,3 L9,3.5 L9,12 L15,12 L15,3 L15,3 Z" id="Shape"></path>
+                                </svg>
+                                <div>Tags</div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="menuitem">
+                            <a href="/archive/">
+                                <svg width="70px" height="35px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>archive</title>
+                                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="book" fill="#ffffff">
+                                            <path d="M3,5 L7,5 L7,6 L3,6 L3,5 L3,5 Z M3,8 L7,8 L7,7 L3,7 L3,8 L3,8 Z M3,10 L7,10 L7,9 L3,9 L3,10 L3,10 Z M14,5 L10,5 L10,6 L14,6 L14,5 L14,5 Z M14,7 L10,7 L10,8 L14,8 L14,7 L14,7 Z M14,9 L10,9 L10,10 L14,10 L14,9 L14,9 Z M16,3 L16,12 C16,12.55 15.55,13 15,13 L9.5,13 L8.5,14 L7.5,13 L2,13 C1.45,13 1,12.55 1,12 L1,3 C1,2.45 1.45,2 2,2 L7.5,2 L8.5,3 L9.5,2 L15,2 C15.55,2 16,2.45 16,3 L16,3 Z M8,3.5 L7.5,3 L2,3 L2,12 L8,12 L8,3.5 L8,3.5 Z M15,3 L9.5,3 L9,3.5 L9,12 L15,12 L15,3 L15,3 Z" id="Shape"></path>
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                            <div>Archive</div>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-            <div id="contact">
-                <a href="https://github.com/zupzup" class="github" target="_blank" title="GitHub">
-                    <svg viewBox="0 0 512 512">
-                        <title>github</title>
-                    <g fill="FA9B39">
-                        <path d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z"/>
-                        </g>
-                    </svg>
-                </a>
-                <a href="/index.xml" target="_blank" class="rss" title="RSS">
-                    <svg title="rss" viewBox="0 0 512 512">
-                        <title>rss</title>
-                    <g fill="FA9B39">
-                        <path d="M201.8 347.2c0 20.3-16.5 36.8-36.8 36.8 -20.3 0-36.8-16.5-36.8-36.8s16.5-36.8 36.8-36.8C185.3 310.4 201.8 326.8 201.8 347.2zM128.2 204.7v54.5c68.5 0.7 124 56.3 124.7 124.7h54.5C306.7 285.3 226.9 205.4 128.2 204.7zM128.2 166.6c57.9 0.3 112.3 22.9 153.2 63.9 41 41 63.7 95.5 63.9 153.5h54.5c-0.3-149.9-121.7-271.4-271.6-271.9V166.6L128.2 166.6z"/>
-                    </svg>
-                </a>
+                                </svg>
+                                <div>Archive</div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <div id="contact">
+                    <a href="https://github.com/zupzup" class="github" target="_blank" title="GitHub">
+                        <svg viewBox="0 0 512 512">
+                            <title>github</title>
+                        <g fill="FA9B39">
+                            <path d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z"/>
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="/index.xml" target="_blank" class="rss" title="RSS">
+                        <svg title="rss" viewBox="0 0 512 512">
+                            <title>rss</title>
+                        <g fill="FA9B39">
+                            <path d="M201.8 347.2c0 20.3-16.5 36.8-36.8 36.8 -20.3 0-36.8-16.5-36.8-36.8s16.5-36.8 36.8-36.8C185.3 310.4 201.8 326.8 201.8 347.2zM128.2 204.7v54.5c68.5 0.7 124 56.3 124.7 124.7h54.5C306.7 285.3 226.9 205.4 128.2 204.7zM128.2 166.6c57.9 0.3 112.3 22.9 153.2 63.9 41 41 63.7 95.5 63.9 153.5h54.5c-0.3-149.9-121.7-271.4-271.6-271.9V166.6L128.2 166.6z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
         <div id="content">
