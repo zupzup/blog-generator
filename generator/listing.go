@@ -18,6 +18,11 @@ type ListingData struct {
 	Tags       []*Tag
 }
 
+// ArchveLinkData holds the data for the archive link template
+type ArchveLinkData struct {
+	NumPosts int
+}
+
 // ListingGenerator Object
 type ListingGenerator struct {
 	Config *ListingConfig
@@ -26,6 +31,7 @@ type ListingGenerator struct {
 // ListingConfig holds the configuration for the listing page
 type ListingConfig struct {
 	Posts                  []*Post
+	SumAllPosts            int
 	Template               *template.Template
 	Destination, PageTitle string
 	IsIndex                bool
@@ -69,10 +75,15 @@ func (g *ListingGenerator) Generate() error {
 			return err
 		}
 		lastBlock := bytes.Buffer{}
-		if err := archiveLink.Execute(&lastBlock, nil); err != nil {
+		ald := ArchveLinkData{
+			NumPosts: g.Config.SumAllPosts,
+		}
+		if err := archiveLink.Execute(&lastBlock, ald); err != nil {
 			return fmt.Errorf("error executing template %s: %v", archiveLinkTemplatePath, err)
 		}
 		htmlBlocks = template.HTML(fmt.Sprintf("%s%s", htmlBlocks, template.HTML(lastBlock.String())))
+	} else {
+		pageTitle = fmt.Sprintf("%s (%d articles)", pageTitle, g.Config.SumAllPosts)
 	}
 	if err := g.Config.Writer.WriteIndexHTML(destination, pageTitle, pageTitle, htmlBlocks, t, ""); err != nil {
 		return err

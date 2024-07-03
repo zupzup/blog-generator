@@ -119,8 +119,10 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 	}
 	tagPostsMap := createTagPostsMap(posts)
 	// frontpage
+	sumAllPosts := len(posts)
 	fg := ListingGenerator{&ListingConfig{
 		Posts:       posts[:getNumOfPagesOnFrontpage(posts, cfg.Blog.Frontpageposts)],
+		SumAllPosts: sumAllPosts,
 		Template:    t,
 		Destination: destination,
 		PageTitle:   "",
@@ -130,6 +132,7 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 	// archive
 	ag := ListingGenerator{&ListingConfig{
 		Posts:       posts,
+		SumAllPosts: sumAllPosts,
 		Template:    t,
 		Destination: filepath.Join(destination, "archive"),
 		PageTitle:   "Archive",
