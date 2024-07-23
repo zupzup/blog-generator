@@ -83,7 +83,11 @@ func (g *ListingGenerator) Generate() error {
 		}
 		htmlBlocks = template.HTML(fmt.Sprintf("%s%s", htmlBlocks, template.HTML(lastBlock.String())))
 	} else {
-		pageTitle = fmt.Sprintf("%s (%d articles)", pageTitle, g.Config.SumAllPosts)
+		if strings.Contains(g.Config.Destination, "tags") {
+			pageTitle = fmt.Sprintf("%s (%d articles)", pageTitle, len(postBlocks))
+		} else {
+			pageTitle = fmt.Sprintf("%s (%d articles)", pageTitle, g.Config.SumAllPosts)
+		}
 	}
 	if err := g.Config.Writer.WriteIndexHTML(destination, pageTitle, pageTitle, htmlBlocks, t, ""); err != nil {
 		return err

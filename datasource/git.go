@@ -2,10 +2,11 @@ package datasource
 
 import (
 	"fmt"
-	"github.com/zupzup/blog-generator/config"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"github.com/zupzup/blog-generator/config"
 )
 
 // GitDataSource is the git data source object
