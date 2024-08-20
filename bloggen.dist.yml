@@ -12,6 +12,7 @@ blog:
     title: 'zupzup'
     author: 'Mario Zupan'
     frontpageposts: 10
+    noteunderposts: ''
     statics:
         files:
             - src: 'static/favicon.ico'

@@ -38,10 +38,11 @@ type PostGenerator struct {
 
 // PostConfig holds the post's configuration
 type PostConfig struct {
-	Post        *Post
-	Destination string
-	Template    *template.Template
-	Writer      *IndexWriter
+	Post           *Post
+	Destination    string
+	Template       *template.Template
+	Writer         *IndexWriter
+	Noteunderposts string
 }
 
 // Generate generates a post
@@ -60,7 +61,7 @@ func (g *PostGenerator) Generate() error {
 		}
 	}
 
-	if err := g.Config.Writer.WriteIndexHTML(staticPath, post.Meta.Title, post.Meta.Short, template.HTML(string(post.HTML)), t, post.Meta.Canonical); err != nil {
+	if err := g.Config.Writer.WriteIndexHTML(staticPath, post.Meta.Title, post.Meta.Short, template.HTML(string(post.HTML)), t, post.Meta.Canonical, template.HTML(g.Config.Noteunderposts)); err != nil {
 		return err
 	}
 	fmt.Printf("\tFinished generating Post: %s...\n", post.Meta.Title)

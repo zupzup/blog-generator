@@ -37,6 +37,7 @@ type IndexData struct {
 	CanonicalLink   string
 	MetaDescription string
 	HighlightCSS    template.CSS
+	Noteunderposts  template.HTML
 }
 
 // Generator interface
@@ -110,10 +111,11 @@ func runTasks(posts []*Post, t *template.Template, destination string, cfg *conf
 	//posts
 	for _, post := range posts {
 		pg := PostGenerator{&PostConfig{
-			Post:        post,
-			Destination: destination,
-			Template:    t,
-			Writer:      indexWriter,
+			Post:           post,
+			Destination:    destination,
+			Template:       t,
+			Writer:         indexWriter,
+			Noteunderposts: cfg.Blog.Noteunderposts,
 		}}
 		generators = append(generators, &pg)
 	}
@@ -235,7 +237,7 @@ type IndexWriter struct {
 }
 
 // WriteIndexHTML writes an index.html file
-func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, content template.HTML, t *template.Template, canonicalLink string) error {
+func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, content template.HTML, t *template.Template, canonicalLink string, noteunderposts template.HTML) error {
 	filePath := filepath.Join(path, "index.html")
 	f, err := os.Create(filePath)
 	if err != nil {
@@ -266,6 +268,7 @@ func (i *IndexWriter) WriteIndexHTML(path, pageTitle, metaDescription string, co
 		CanonicalLink:   canonicalLink,
 		MetaDescription: metaDesc,
 		HighlightCSS:    template.CSS(hlbuf.String()),
+		Noteunderposts:  noteunderposts,
 	}
 	if err := t.Execute(w, td); err != nil {
 		return fmt.Errorf("error executing template %s: %v", filePath, err)

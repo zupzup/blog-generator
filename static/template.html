@@ -374,6 +374,12 @@
         <div id="content">
             {{if .PageTitle}}<h1 id="pagetitle">{{.PageTitle}}</h1>{{end}}
             {{.Content}}
+            {{if .Noteunderposts}}
+                <hr/>
+                <div id="noteunderposts">
+                    <p><em>{{.Noteunderposts}}</em></p>
+                </div>
+            {{end}}
         </div>
         <div id="footer">
             <p>2016-{{.Year}} Mario Zupan | <a href="/imprint/">Imprint</a></p>

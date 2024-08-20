@@ -89,7 +89,7 @@ func (g *ListingGenerator) Generate() error {
 			pageTitle = fmt.Sprintf("%s (%d articles)", pageTitle, g.Config.SumAllPosts)
 		}
 	}
-	if err := g.Config.Writer.WriteIndexHTML(destination, pageTitle, pageTitle, htmlBlocks, t, ""); err != nil {
+	if err := g.Config.Writer.WriteIndexHTML(destination, pageTitle, pageTitle, htmlBlocks, t, "", ""); err != nil {
 		return err
 	}
 	return nil

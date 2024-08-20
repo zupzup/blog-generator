@@ -17,6 +17,7 @@ type Config struct {
 		Title          string
 		Author         string
 		Frontpageposts int
+		Noteunderposts string
 		Statics        struct {
 			Files []struct {
 				Src  string
