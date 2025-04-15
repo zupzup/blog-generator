@@ -100,7 +100,7 @@ func calculateTimeToRead(input string) string {
 	var secondsPerWord = 60.0 / 250.0
 	// multiply with the amount of words
 	words := secondsPerWord * float64(len(strings.Split(input, " ")))
-	// add 12 seconds for each image
+	// add 5 seconds for each image
 	images := 5.0 * strings.Count(input, "<img")
 	result := (words + float64(images)) / 60.0
 	if result < 1.0 {
