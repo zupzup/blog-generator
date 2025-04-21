@@ -1,5 +1,5 @@
 generator:
-    repo: 'https://github.com/zupzup/blog'
+    repo: 'https://git.sr.ht/~zupzup/blog'
     branch: 'main'
     tmp: 'tmp'
     dest: 'www'

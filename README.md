@@ -31,7 +31,7 @@ Example Config File:
 
 ```yml
 generator:
-    repo: 'https://github.com/zupzup/blog'
+    repo: 'https://git.sr.ht/~zupzup/blog'
     tmp: 'tmp'
     dest: 'www'
     userss: true
@@ -78,4 +78,4 @@ Edit templates in `static` folder to your needs.
 
 ## Example Blog Repository
 
-[Blog](https://github.com/zupzup/blog)
+[Blog](https://git.sr.ht/~zupzup/blog)

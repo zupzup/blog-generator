@@ -73,7 +73,7 @@ func readConfig() (*config.Config, error) {
 		return nil, fmt.Errorf("could not parse config: %v", err)
 	}
 	if cfg.Generator.Repo == "" {
-		return nil, fmt.Errorf("Please provide a repository URL, e.g.: https://github.com/zupzup/blog")
+		return nil, fmt.Errorf("please provide a repository URL, e.g.: https://git.sr.ht/~zupzup/blog")
 	}
 	if cfg.Generator.Tmp == "" {
 		cfg.Generator.Tmp = "tmp"
