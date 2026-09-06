@@ -10,7 +10,7 @@ import (
 
 	yaml "gopkg.in/yaml.v2"
 
-	"git.sr.ht/~zupzup/blog-generatorconfig"
+	"git.sr.ht/~zupzup/blog-generator/config"
 	"git.sr.ht/~zupzup/blog-generator/datasource"
 	"git.sr.ht/~zupzup/blog-generator/generator"
 )
