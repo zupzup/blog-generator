@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/zupzup/blog-generator/config"
+	"git.sr.ht/~zupzup/blog-generator/config"
 )
 
 // GitDataSource is the git data source object

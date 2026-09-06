@@ -10,9 +10,9 @@ import (
 
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/zupzup/blog-generator/config"
-	"github.com/zupzup/blog-generator/datasource"
-	"github.com/zupzup/blog-generator/generator"
+	"git.sr.ht/~zupzup/blog-generatorconfig"
+	"git.sr.ht/~zupzup/blog-generator/datasource"
+	"git.sr.ht/~zupzup/blog-generator/generator"
 )
 
 // Run runs the application

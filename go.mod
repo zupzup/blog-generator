@@ -1,4 +1,4 @@
-module github.com/zupzup/blog-generator
+module git.sr.ht/~zupzup/blog-generator
 
 go 1.18
 

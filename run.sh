@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-pushd www/;python -m SimpleHTTPServer; popd
+pushd www/; python3 -m http.server; popd

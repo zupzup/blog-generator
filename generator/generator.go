@@ -14,7 +14,7 @@ import (
 
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/alecthomas/chroma/styles"
-	"github.com/zupzup/blog-generator/config"
+	"git.sr.ht/~zupzup/blog-generator/config"
 )
 
 // Meta is a data container for Metadata

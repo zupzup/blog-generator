@@ -1,8 +1,6 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/zupzup/calories)](https://goreportcard.com/report/github.com/zupzup/calories)
-
 # blog-generator
 
-A static blog generator using a configurable GitHub repository as a data-source. The posts are written in markdown with yml metadata attached to them. [This](https://github.com/zupzup/blog) is an example repo for the blog at [https://zupzup.org/](https://zupzup.org/).
+A static blog generator using a configurable GitHub repository as a data-source. The posts are written in markdown with yml metadata attached to them. [This](https://git.sr.ht/~zupzup/blog) is an example repo for the blog at [https://zupzup.org/](https://zupzup.org/).
 
 ## Features
 
@@ -18,7 +16,7 @@ A static blog generator using a configurable GitHub repository as a data-source.
 ## Installation
 
 ```bash
-go get github.com/zupzup/blog-generator
+go get git.sr.ht/~zupzup/blog-generator
 ```
 
 ## Usage & Customization

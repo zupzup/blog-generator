@@ -109,17 +109,21 @@
                 margin-top: 2px;
             }
             #header #contact {
-                flex: 0.5;
+                flex: 0.6;
                 padding: 1em 0 1em 0;
                 vertical-align: middle;
                 margin: auto;
                 text-align: right;
             }
             #header #contact svg {
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
                 display: inline-block;
                 fill: white;
+            }
+            #header #contact svg.sourcehut {
+                width: 24px;
+                padding-right: 8px;
             }
             #taglist {
                 list-style-type: none;
@@ -256,6 +260,10 @@
                     height: 40px;
                     fill: white;
                 }
+                #contactmobile svg.sourcehut {
+                    width: 30px;
+                    padding-right: 8px;
+                }
             }
             {{.HighlightCSS}}
             .chroma .err {
@@ -359,6 +367,12 @@
                     </li>
                 </ul>
                 <div id="contact">
+                    <a href="https://git.sr.ht/~zupzup" class="sourcehut" target="_blank" title="SourceHut">
+                        <svg class="sourcehut" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z">
+                            </path>
+                        </svg>
+                    </a>
                     <a href="https://github.com/zupzup" class="github" target="_blank" title="GitHub">
                         <svg viewBox="0 0 512 512">
                             <title>github</title>
@@ -390,6 +404,12 @@
         <div id="footer">
             <p>2016-{{.Year}} Mario Zupan | <a href="/imprint/">Imprint</a></p>
             <div id="contactmobile">
+                <a href="https://git.sr.ht/~zupzup" class="sourcehut" target="_blank" title="SourceHut">
+                    <svg class="sourcehut" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z">
+                        </path>
+                    </svg>
+                </a>
                 <a href="https://github.com/zupzup" class="github" target="_blank" title="GitHub">
                     <svg viewBox="0 0 512 512">
                     <g fill="FA9B39">
